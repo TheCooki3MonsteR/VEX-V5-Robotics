@@ -160,16 +160,61 @@ void competition_initialize() {}
 // this needs to be put outside a function
 ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 
-/**
- * Runs during auto
- *
- * This is an example autonomous routine which demonstrates a lot of the features LemLib has to offer
- */
-void autonomous() {
-    
+void R7W() {
+    chassis.setPose(15, -48, 0);
+    IntakeMotor.move(-127);
+    Descorer.set_value(true);
+    chassis.moveToPoint(22, -15, 500, {}, false);
+    MatchLoader.set_value(true);
 
-    //chassis.waitUntil(10);
-    //chassis.cancelMotion();
+    //align with the long goal
+    chassis.moveToPoint(50, -48, 2000);
+    chassis.turnToHeading(180, 1000);
+
+    //go into the match loader
+    chassis.moveToPoint(50, -70, 1000);
+    chassis.moveToPoint(50, 0, 200, {.forwards=false},false);
+    chassis.moveToPoint(50, -70, 1000,{},false);
+
+    //go to the long goal
+    chassis.moveToPoint(50,-24,2000,{.forwards=false},false);
+    IntakeMotor.move(-127);
+    BigWheel.move(-127);
+    SmallWheel.move(-127);
+
+    pros::delay(2000);
+
+    chassis.moveToPoint(60, -50, 2000);
+    Descorer.set_value(false);
+    chassis.moveToPoint(60, -7, 2000,{.forwards=false}, false);
+}
+
+void R4W(){
+    chassis.setPose(15, -48, 0);
+    IntakeMotor.move(-127);
+    Descorer.set_value(true);
+    chassis.moveToPoint(22, -15, 500, {}, false);
+    MatchLoader.set_value(true);
+
+    //align with the long goal
+    chassis.moveToPoint(50, -48, 2000);
+    chassis.turnToHeading(180, 1000);
+
+    //go to the long goal
+    chassis.moveToPoint(50,-24,2000,{.forwards=false},false);
+    IntakeMotor.move(-127);
+    BigWheel.move(-127);
+    SmallWheel.move(-127);
+
+    pros::delay(2000);
+
+    chassis.moveToPoint(60, -50, 2000);
+    Descorer.set_value(false);
+    chassis.moveToPoint(60, -7, 2000,{.forwards=false}, false);
+}
+
+void autonomous() {
+    R4W();
 }
 
 /**
