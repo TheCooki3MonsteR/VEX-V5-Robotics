@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "80852A",
+    "project_name": "SAWP",
     "target": "v5",
     "templates": {
       "LemLib": {
@@ -352,7 +352,7 @@
     },
     "upload_options": {
       "description": "80852A",
-      "slot": 1,
+      "slot": 3,
       "icon": "pizza",
       "after": "screen"
     },

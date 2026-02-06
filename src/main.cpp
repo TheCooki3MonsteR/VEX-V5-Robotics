@@ -162,14 +162,6 @@ void competition_initialize() {}
 // this needs to be put outside a function
 ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 
-void matchload(int x, int y){ //ONLY FOR MATCH AUTON NOT SKILLS
-    chassis.moveToPoint(x, y, 1000);
-    chassis.moveToPoint(x, 0, 200, {.forwards=false},false);
-    chassis.moveToPoint(x, y, 200,{},false);
-    chassis.moveToPoint(x, 0, 200, {.forwards=false},false);
-    chassis.moveToPoint(x, y, 1000);
-}
-
 void score(){
     //D-tech
     IntakeMotor.move(-127);
@@ -230,6 +222,51 @@ void L43W(){
     chassis.moveToPoint(-37.5, -7, 1500,{.forwards=false}, false);
 }
 
+void L45W(){
+    chassis.setPose(-15, -48, 0);
+    IntakeMotor.move(-127);
+    Descorer.set_value(true);
+    chassis.moveToPoint(-22, -17.5, 1000);
+    pros::delay(750);
+    MatchLoader.set_value(true);
+
+    //align with the mid goal
+    chassis.turnToHeading(-135, 500);  
+    chassis.moveToPoint(-9,-7.7, 1000,{.forwards=false}, false);
+    MatchLoader.set_value(false);
+
+    //score slowly
+    BigWheel.move(-40);
+    SmallWheel.move(-40);
+    pros::delay(650);
+    BigWheel.move(0);
+    SmallWheel.move(0);
+
+    //go under get 2
+    chassis.moveToPoint(-25, -20, 1000);
+    chassis.turnToHeading(-60, 500);
+    chassis.moveToPoint(-35, -3, 1500);
+    MatchLoader.set_value(false);
+
+    chassis.moveToPoint(-20, -20, 1000);
+    chassis.moveToPoint(-48, -48, 1500);
+    chassis.turnToHeading(180, 500);
+
+    //go into the match loader
+    MatchLoader.set_value(true);
+    chassis.moveToPoint(-48, -70, 1000);
+    chassis.moveToPoint(-48, 0, 200, {.forwards=false},false);
+    chassis.moveToPoint(-48, -72, 600,{},false);
+
+    //go to the long goal
+    chassis.moveToPoint(-48,-24,2000,{.forwards=false},false);
+    score();
+    pros::delay(2000);
+    chassis.moveToPoint(-37.5, -50, 1500);
+    Descorer.set_value(false);
+    chassis.moveToPoint(-37.5, -7, 1500,{.forwards=false}, false);
+}
+
 void L7W() {
     chassis.setPose(-15, -48, 0);
     IntakeMotor.move(-127);
@@ -258,8 +295,32 @@ void L7W() {
     chassis.moveToPoint(-37, -7, 2000,{.forwards=false}, false);
 }
 
-void R7W() {
-    //untested matchload jiggle
+void L4W() {
+    chassis.setPose(-15, -48, 0);
+    IntakeMotor.move(-127);
+    Descorer.set_value(true);
+    chassis.moveToPoint(-22, -17.5, 500, {}, false);
+    MatchLoader.set_value(true);
+
+    //align with the long goal
+    chassis.moveToPoint(-48.3, -48, 2000);
+    chassis.turnToHeading(180, 1000);
+
+    //go to the long goal
+    chassis.moveToPoint(-48.3,-24,1500,{.forwards=false},false);
+    score();
+    pros::delay(2000);
+
+    MatchLoader.set_value(false);
+    chassis.moveToPoint(-48.3,-50,1000,{},false);
+
+    //wing
+    chassis.moveToPoint(-39, -50, 1000, {.forwards=false}, false);
+    Descorer.set_value(false);
+    chassis.moveToPoint(-39, -6, 2000,{.forwards=false}, false);
+}
+
+void R4W() {
     chassis.setPose(15, -48, 0);
     IntakeMotor.move(-127);
     Descorer.set_value(true);
@@ -270,45 +331,99 @@ void R7W() {
     chassis.moveToPoint(50, -48, 2000);
     chassis.turnToHeading(180, 1000);
 
-    //go into the match loader
-    matchload(50, -70);
-
     //go to the long goal
-    chassis.moveToPoint(50,-24,2000,{.forwards=false},false);
+    chassis.moveToPoint(50,-24,1500,{.forwards=false},false);
     score();
-
     pros::delay(2000);
+
+    MatchLoader.set_value(false);
+    chassis.moveToPoint(60,-50,800,{},false);
 
     chassis.moveToPoint(60, -50, 2000);
     Descorer.set_value(false);
     chassis.moveToPoint(60, -7, 2000,{.forwards=false}, false);
 }
 
-void SAWP(){
-    //untested
-    chassis.setPose(15, -48, 90);
+void R7W() {
+    chassis.setPose(15, -48, 0);
     IntakeMotor.move(-127);
-    Descorer.set_value(true); 
-
-    //align with the long goal
-    chassis.moveToPoint(50, -48, 2000);
-    chassis.turnToHeading(180, 1000);
-
-    //go into the match loader
-    MatchLoader.set_value(true);
-    matchload(50, -70); //jiggle
-
-    //go to the long goal
-    chassis.moveToPoint(50,-24,2000,{.forwards=false},false);
-    MatchLoader.set_value(false);
-    score();
-    pros::delay(2000);
-    chassis.moveToPoint(50,-45,2000,{},false);
-
-    stopScore();
-    IntakeMotor.move(-127);
+    Descorer.set_value(true);
     chassis.moveToPoint(22, -17.5, 500, {}, false);
     MatchLoader.set_value(true);
+
+    //align with the long goal
+    chassis.moveToPoint(50, -48, 1100);
+    chassis.turnToHeading(180, 600);
+
+    //go into the match loader
+    chassis.moveToPoint(50, -68, 900);
+    chassis.moveToPoint(50, 0, 200, {.forwards=false},false);
+    chassis.moveToPoint(50, -68,800,{},false);
+
+    //go to the long goal
+    chassis.turnToHeading(180, 500);
+    chassis.moveToPoint(50,-24,1000,{.forwards=false},false);
+    score();
+
+    pros::delay(2000);
+    chassis.moveToPoint(60, -50, 2000);
+    Descorer.set_value(false);
+    chassis.moveToPoint(60, -7, 2000,{.forwards=false}, false);
+}
+
+void SAWP(){
+    chassis.setPose(15, -48, 90);
+    IntakeMotor.move(-127);
+    Descorer.set_value(true);
+    MatchLoader.set_value(true);
+
+    //align with the long goal
+    chassis.moveToPoint(50, -48, 900);
+    chassis.turnToHeading(180, 560);
+
+    IntakeMotor.move(-127);
+    //go into the match loader
+    chassis.moveToPoint(50, -61, 790);
+    //chassis.moveToPoint(50, 0, 100, {.forwards=false},false);
+    //chassis.moveToPoint(50, -60,100,{},false);
+
+    //go to the long goal
+    chassis.moveToPoint(50.5,-30,720,{.forwards=false},false);
+    
+    //SCORE
+    IntakeMotor.move(-127);
+    BigWheel.move(-127);
+    SmallWheel.move(-127);
+    MatchLoader.set_value(false);
+    chassis.moveToPoint(50.5,-23,800,{.forwards=false},false);
+    pros::delay(700);
+
+    chassis.moveToPoint(50, -48, 500, {}, false);
+    stopScore();
+    IntakeMotor.move(-127);
+    chassis.moveToPoint(-16, -27, 1800, {}, false);
+    MatchLoader.set_value(true);
+    chassis.moveToPoint(-24, -24, 800, {.maxSpeed=100}, false);
+
+    //align with the mid goal
+    chassis.turnToHeading(-135, 500);  
+    chassis.moveToPoint(-9,-9, 1000,{.forwards=false}, false);
+
+    //score slowly
+    BigWheel.move(-40);
+    SmallWheel.move(-40);
+    pros::delay(750);
+    BigWheel.move(0);
+    SmallWheel.move(0);
+
+    //move to high goal left & align
+    chassis.moveToPoint(-48.3, -48, 1500);
+    chassis.turnToHeading(180, 900);
+
+    //score
+    chassis.moveToPoint(-48.8, -61, 950);
+    chassis.moveToPoint(-48.8,-23,1000,{.forwards=false},false);
+    score();
 }
 
 void SKILLS(){
@@ -321,11 +436,11 @@ void SKILLS(){
 
     //align with the mid goal
     chassis.turnToHeading(-135, 500);  
-    chassis.moveToPoint(-9,-7.5, 1000,{.forwards=false}, false);
+    chassis.moveToPoint(-8.7,-7.5, 1000,{.forwards=false}, false);
 
     //score slowly
     BigWheel.move(-50);
-    SmallWheel.move(-50);
+    SmallWheel.move(-47);
     pros::delay(750);
     BigWheel.move(0);
     SmallWheel.move(0);
@@ -336,49 +451,60 @@ void SKILLS(){
 
     //go into the match loader
     MatchLoader.set_value(true);
-    chassis.moveToPoint(-48, -70, 1000);
-    chassis.moveToPoint(-48, 0, 200, {.forwards=false},false);
-    chassis.moveToPoint(-48, -69, 2000,{},false);
-    chassis.moveToPoint(-48, 0, 200, {.forwards=false},false);
-    chassis.moveToPoint(-48, -70, 2000,{},false);
-    chassis.moveToPoint(-48, 0, 200, {.forwards=false},false);
-    chassis.moveToPoint(-48, -68, 2000,{},false);
-
+    chassis.moveToPoint(-48, -67, 1000, {.maxSpeed=90},false);
+    chassis.moveToPoint(-48, -54, 1500, {.forwards=false},false);
+    chassis.moveToPoint(-48, -68, 100, {.maxSpeed=70}, false);
+    chassis.moveToPoint(-48, -54,1000, {.forwards=false},false);
+    chassis.moveToPoint(-48, -49, 1000, {.forwards=false}, false);
+    stopScore();
+   
+    
 
     //drive to the other side
     chassis.moveToPoint(-32, -50, 1500,{.forwards=false}, false); //come out the loader
-    chassis.moveToPoint(-32, 60, 3500, {.forwards=false}, false);
-    chassis.moveToPoint(-50, 24, 2000, {.forwards=false}, false);
+    chassis.moveToPoint(-32, 57, 3500, {.forwards=false}, false);
+    chassis.moveToPoint(-52, 24, 2000, {.forwards=false}, false);
     chassis.turnToHeading(0, 500);
-    BigWheel.move(-127);
-    SmallWheel.move(-127);
-    pros::delay(2000);
+    chassis.moveToPoint(-50, 22, 500,{.forwards=false}, false);
+    score();
+    pros::delay(2500);
+    stopScore();
     chassis.setPose(-48,30, 0); //reset position after possible drift
+    chassis.moveToPoint(-48, 28, 750,{.forwards=false}, false);
 
     //go into the match loader
     MatchLoader.set_value(true);
     BigWheel.move(0);
     SmallWheel.move(0);
-    chassis.moveToPoint(-47, 68, 1000, {}, false);
-    chassis.moveToPoint(-47, 0, 200, {.forwards=false},false);
-    chassis.moveToPoint(-47, 68, 600,{},false);
-    chassis.moveToPoint(-47, 0, 200, {.forwards=false},false);
-    chassis.moveToPoint(-47, 68, 600,{},false);chassis.moveToPoint(-47, 0, 200, {.forwards=false},false);
-    chassis.moveToPoint(-47, 70, 600,{},false);
+    IntakeMotor.move(-127);
+    chassis.moveToPoint(-50, 70, 1500, {.maxSpeed=70}, false);
+    chassis.moveToPoint(-50, 55,1000, {.forwards=false},false);
+    chassis.moveToPoint(-50, 70, 100, {.maxSpeed=70}, false);
+    chassis.moveToPoint(-50, 55,500, {.forwards=false},false);
+    chassis.moveToPoint(-50, 70, 100, {.maxSpeed=70}, false);
+    chassis.moveToPoint(-50, 55,500, {.forwards=false},false);
+    chassis.moveToPoint(-50, 70, 100, {.maxSpeed=70}, false);
+    chassis.moveToPoint(-50, 55,500, {.forwards=false},false);
+    chassis.moveToPoint(-50, 70, 100, {.maxSpeed=70}, false);
+    chassis.moveToPoint(-50, 55,500, {.forwards=false},false);
+    chassis.moveToPoint(-50,50, 750, {.forwards=false}, false);
+    stopScore();
+    
+    
    
 
     //go to the left long goal
-    chassis.moveToPoint(-47,24,2000,{.forwards=false},false);
-    BigWheel.move(-127);
-    SmallWheel.move(-127);
-    pros::delay(2000);
+    chassis.moveToPoint(-48,24,2000,{.forwards=false},false);
+    score();
+    pros::delay(2500);
+    stopScore();
     chassis.moveToPoint(-48, 40, 1000);
 
 
 }
 
 void autonomous() {
-    R7W();
+    SAWP();
 }
 
 /**
@@ -388,11 +514,11 @@ void opcontrol() {
     // controller
     // loop to continuously update motors
     while (true) {
-        // Current Drive Mode (Tank)
+        // Current Drive Mode (Ryden Arcade)
         int forward = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
         int turn = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
         chassis.arcade(forward, turn);
-
+        
 		// Intake
 		if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
 		IntakeMotor.move(127);
@@ -419,14 +545,14 @@ void opcontrol() {
 		}
 
 		// Match Loader
-        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
+        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
             static bool match_state = false;
             match_state = !match_state;
             MatchLoader.set_value(match_state);
         }
 
 		// Descorer Toggle
-		if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+		if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
             static bool desc_state = false;
             desc_state = !desc_state;
             Descorer.set_value(desc_state);
