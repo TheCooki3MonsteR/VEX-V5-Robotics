@@ -352,7 +352,7 @@
     },
     "upload_options": {
       "description": "80852A",
-      "slot": 5,
+      "slot": 1,
       "icon": "pizza",
       "after": "screen"
     },
